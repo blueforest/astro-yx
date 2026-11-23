@@ -22,9 +22,7 @@ async function getDevEnv(): Promise<Env> {
 export async function getCloudflareEnv(): Promise<Env> {
   try {
     const { env } = await import("cloudflare:workers");
-    if (env?.DB) {
-      return env as Env;
-    }
+    return env as Env;
   } catch {
     // Running outside workerd (typical for `astro dev`).
   }

@@ -21,12 +21,16 @@ export const server = {
     handler: async (input) => {
       try {
         const env = await getCloudflareEnv();
+        if (!env.DB) {
+          throw new Error("D1 binding DB is missing");
+        }
         await insertInquiry(env.DB, input);
       } catch (error) {
         console.error("[inquiry] failed to save", error);
         throw new ActionError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Unable to save inquiry. Please try again later.",
+          message:
+            "Unable to save inquiry. Please try again later, or contact us by email.",
         });
       }
 
