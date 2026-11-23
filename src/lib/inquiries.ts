@@ -7,6 +7,33 @@ export type Inquiry = {
   created_at: string;
 };
 
+const CREATE_INQUIRIES_TABLE = `
+CREATE TABLE IF NOT EXISTS inquiries (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  country TEXT,
+  application_details TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+)
+`;
+
+const CREATE_INQUIRIES_INDEX = `
+CREATE INDEX IF NOT EXISTS idx_inquiries_created_at ON inquiries (created_at DESC)
+`;
+
+export async function ensureInquiriesSchema(db: D1Database): Promise<void> {
+  const createTable = await db.prepare(CREATE_INQUIRIES_TABLE).run();
+  if (!createTable.success) {
+    throw new Error("Failed to ensure inquiries table exists");
+  }
+
+  const createIndex = await db.prepare(CREATE_INQUIRIES_INDEX).run();
+  if (!createIndex.success) {
+    throw new Error("Failed to ensure inquiries index exists");
+  }
+}
+
 export async function insertInquiry(
   db: D1Database,
   input: {
@@ -16,7 +43,9 @@ export async function insertInquiry(
     application_details: string;
   },
 ): Promise<void> {
-  await db
+  await ensureInquiriesSchema(db);
+
+  const result = await db
     .prepare(
       `INSERT INTO inquiries (name, email, country, application_details)
        VALUES (?, ?, ?, ?)`,
@@ -28,9 +57,15 @@ export async function insertInquiry(
       input.application_details,
     )
     .run();
+
+  if (!result.success) {
+    throw new Error("D1 insert failed");
+  }
 }
 
 export async function listInquiries(db: D1Database): Promise<Inquiry[]> {
+  await ensureInquiriesSchema(db);
+
   const { results } = await db
     .prepare(
       `SELECT id, name, email, country, application_details, created_at

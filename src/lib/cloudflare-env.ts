@@ -2,8 +2,8 @@
  * Resolve Cloudflare bindings in both workerd (preview/deploy) and
  * `astro dev` (Node + Wrangler platform proxy).
  *
- * Top-level `import { env } from "cloudflare:workers"` breaks `astro dev`
- * because that virtual module is not available in Vite's Node SSR runner.
+ * Top-level `import { env } from "cloudflare:workers"` breaks `astro dev`,
+ * so production uses a separate module and local dev uses getPlatformProxy.
  */
 let platformProxyPromise: Promise<Env> | undefined;
 
@@ -20,16 +20,10 @@ async function getDevEnv(): Promise<Env> {
 }
 
 export async function getCloudflareEnv(): Promise<Env> {
-  try {
-    const { env } = await import("cloudflare:workers");
-    return env as Env;
-  } catch {
-    // Running outside workerd (typical for `astro dev`).
+  if (import.meta.env.DEV) {
+    return getDevEnv();
   }
 
-  if (import.meta.env.PROD) {
-    throw new Error("Cloudflare bindings are unavailable in this runtime.");
-  }
-
-  return getDevEnv();
+  const { getWorkersEnv } = await import("./cf-env");
+  return getWorkersEnv();
 }
