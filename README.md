@@ -2,7 +2,7 @@
 
 一个简洁的 Astro + TypeScript 起步项目，适合学习官方目录约定，并在此基础上继续扩展。
 
-样式基于 **Tailwind CSS v4**（`@tailwindcss/vite`）。表单使用 **Astro Actions**，因此配置了 `@astrojs/node` 适配器（`output: 'server'`）。
+样式基于 **Tailwind CSS v4**（`@tailwindcss/vite`）。表单使用 **Astro Actions**，部署目标为 **Cloudflare Workers**（`@astrojs/cloudflare`，`output: 'server'`）。
 
 ## 快速开始
 
@@ -21,9 +21,30 @@ npm run dev
 | --- | --- |
 | `npm run dev` | 启动开发服务器（端口 4422） |
 | `npm run build` | 构建生产产物到 `dist/` |
-| `npm run preview` | 本地预览构建结果（端口 4422） |
-| `npm run start` | 以 Node standalone 方式启动构建后的服务端 |
+| `npm run preview` | 构建后用 Wrangler 本地预览 |
+| `npm run deploy` | 构建并部署到 Cloudflare Workers |
 | `npm run check` | 运行 `astro check` 做类型与诊断检查 |
+
+## 部署到 Cloudflare Workers
+
+按 [Astro 官方 Cloudflare 部署文档](https://docs.astro.build/en/guides/deploy/cloudflare/)。
+
+**环境要求：** Node.js `>=22.23.4`（与当前 Astro 版本一致）。
+
+```bash
+# 首次需要在本机浏览器登录 Cloudflare 账号
+npx wrangler login
+
+# 构建并部署到 Cloudflare Workers
+npm run deploy
+```
+
+部署成功后，Wrangler 会输出 `*.workers.dev` 地址。也可在 Cloudflare Dashboard → **Workers & Pages** 中绑定自定义域名。
+
+配置文件：
+
+- `astro.config.mjs`：`@astrojs/cloudflare` 适配器 + `output: "server"`
+- `wrangler.jsonc`：Worker 名称、兼容性标志与静态资源目录
 
 ## 目录用途
 

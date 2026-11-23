@@ -1,17 +1,18 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-
 import tailwindcss from "@tailwindcss/vite";
-
-import node from "@astrojs/node";
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
   // Astro Actions / 表单提交需要服务端输出
   output: "server",
-  adapter: node({
-    mode: "standalone",
+  adapter: cloudflare({
+    // 当前站点图片多为 public 静态资源，无需 Cloudflare Images binding
+    imageService: "passthrough",
   }),
+  // 本项目未使用 Sessions，关闭后可避免 Cloudflare 自动配置 KV
+  session: false,
   server: {
     port: 4422,
   },
