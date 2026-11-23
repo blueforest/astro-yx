@@ -6,19 +6,17 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist"
+    // Astro Cloudflare SSR 静态产物在 dist/client（含 sitemap / 图片 / 预渲染页）
+    "directory": "./dist/client"
   },
   "observability": {
     "enabled": true
   },
-  // After `wrangler login`, run:
-  //   npx wrangler d1 create astro-yx-inquiries
-  // then replace database_id below with the returned UUID.
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "astro-yx-inquiries",
-      "database_id": "00000000-0000-0000-0000-000000000001",
+      "database_id": "ba8e3d8d-b6cf-4035-a870-ff0caea87b59",
       "migrations_dir": "migrations"
     }
   ]
