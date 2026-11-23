@@ -22,8 +22,40 @@ npm run dev
 | `npm run dev` | 启动开发服务器（端口 4422） |
 | `npm run build` | 构建生产产物到 `dist/` |
 | `npm run preview` | 构建后用 Wrangler 本地预览 |
-| `npm run deploy` | 构建并部署到 Cloudflare Workers |
+| `npm run deploy` | 应用远端 D1 migrations 并部署到 Cloudflare Workers |
+| `npm run db:migrate:local` | 对本机 D1 应用 migrations |
+| `npm run db:migrate:remote` | 对远端 D1 应用 migrations |
 | `npm run check` | 运行 `astro check` 做类型与诊断检查 |
+
+## 询盘存储（Cloudflare D1）
+
+询盘表单写入 Cloudflare **D1**；可在 **`/admin/inquiries/`** 查看（HTTP Basic Auth，用户名固定为 `admin`）。
+
+### 本地开发
+
+```bash
+cp .dev.vars.example .dev.vars   # 设置 ADMIN_PASSWORD
+npm run db:migrate:local
+npm run dev
+```
+
+打开 http://localhost:4422/admin/inquiries/ ，用 `admin` + `.dev.vars` 中的密码登录。
+
+### 首次生产配置
+
+```bash
+npx wrangler login
+npx wrangler d1 create astro-yx-inquiries
+```
+
+把命令输出的 `database_id` 填进 `wrangler.jsonc` 的 `d1_databases[0].database_id`，然后：
+
+```bash
+npx wrangler secret put ADMIN_PASSWORD   # 设置后台密码
+npm run deploy
+```
+
+查看地址：`https://<你的-worker>.workers.dev/admin/inquiries/`
 
 ## 部署到 Cloudflare Workers
 
@@ -44,8 +76,8 @@ npm run deploy
 配置文件：
 
 - `astro.config.mjs`：`@astrojs/cloudflare` 适配器 + `output: "server"`
-- `wrangler.jsonc`：Worker 名称、兼容性标志与静态资源目录
-
+- `wrangler.jsonc`：Worker 名称、D1 绑定、兼容性标志与静态资源目录
+- `migrations/`：D1 表结构（`inquiries`）
 ## 目录用途
 
 ```text

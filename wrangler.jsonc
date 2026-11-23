@@ -10,5 +10,16 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
+  // After `wrangler login`, run:
+  //   npx wrangler d1 create astro-yx-inquiries
+  // then replace database_id below with the returned UUID.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "astro-yx-inquiries",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "migrations_dir": "migrations"
+    }
+  ]
 }

@@ -20,7 +20,6 @@ pnpm-debug.log*
 
 # Cloudflare / Wrangler
 .wrangler/
-worker-configuration.d.ts
 
 # macOS
 .DS_Store

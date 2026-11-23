@@ -1,5 +1,7 @@
-import { defineAction } from "astro:actions";
+import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro/zod";
+import { getCloudflareEnv } from "../lib/cloudflare-env";
+import { insertInquiry } from "../lib/inquiries";
 
 export const server = {
   submitInquiry: defineAction({
@@ -17,14 +19,16 @@ export const server = {
       application_details: z.string().trim().min(1).max(300),
     }),
     handler: async (input) => {
-      // 后续可接入邮件、CRM 或数据库；当前先在服务端记录并返回成功
-      console.info("[inquiry]", {
-        name: input.name,
-        email: input.email,
-        country: input.country ?? null,
-        application_details: input.application_details,
-        receivedAt: new Date().toISOString(),
-      });
+      try {
+        const env = await getCloudflareEnv();
+        await insertInquiry(env.DB, input);
+      } catch (error) {
+        console.error("[inquiry] failed to save", error);
+        throw new ActionError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Unable to save inquiry. Please try again later.",
+        });
+      }
 
       return {
         ok: true as const,
