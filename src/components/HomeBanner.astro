@@ -1,0 +1,144 @@
+---
+const stats = [
+  { value: "2021", suffix: "", label: "Est. Year" },
+  { value: "9,500", suffix: "㎡", label: "Total Facilities" },
+  { value: "2", suffix: "", label: "Production Bases" },
+] as const;
+---
+
+<section
+  class="relative flex min-h-screen items-center overflow-hidden bg-gradient-to-br from-[#081a2f] via-[#0b2340] to-[#13325c]"
+>
+  <!-- Aurora gradient overlay -->
+  <div
+    class="absolute inset-0 opacity-30"
+    style="background:radial-gradient(circle at 18% 22%,rgba(13,126,138,.35),transparent 45%),radial-gradient(circle at 82% 30%,rgba(56,189,248,.22),transparent 42%),radial-gradient(circle at 55% 85%,rgba(99,102,241,.18),transparent 40%)"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Background texture -->
+  <div class="absolute inset-0 opacity-70 dot-grid" aria-hidden="true"></div>
+
+  <!-- Diagonal lines decoration -->
+  <div
+    class="absolute bottom-0 left-0 h-64 w-64 opacity-10"
+    style="background:repeating-linear-gradient(45deg,#C8D6E5,#C8D6E5 1px,transparent 1px,transparent 12px)"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="relative mx-auto grid w-full max-w-7xl items-center gap-16 px-6 py-16 md:grid-cols-2"
+  >
+    <!-- Left copy -->
+    <div>
+      <div
+        class="mb-8 inline-flex items-center gap-2 rounded-full border border-teal/40 px-4 py-1.5 text-xs font-500 tracking-widest text-teal-light uppercase"
+      >
+        <span class="h-1.5 w-1.5 rounded-full bg-teal"></span>
+        Intech Technology Group Ltd.
+      </div>
+
+      <h1
+        class="mb-6 font-display text-5xl leading-[1.05] text-white md:text-6xl lg:text-6xl"
+      >
+        Precision <br />
+        <span class="text-teal-light italic">CMP Consumables</span><br />
+        for Semiconductor
+      </h1>
+
+      <p class="mb-4 max-w-lg text-lg leading-relaxed text-silver">
+        YX Semiconductor Materials provides high-performance polishing pads and
+        waxless templates for wafer CMP processes. Our solutions support
+        silicon, SiC, GaAs, sapphire, and other advanced semiconductor
+        materials.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="#products-cmp-polishing-pad"
+          class="inline-flex items-center gap-2 rounded bg-teal px-8 py-3.5 font-500 text-white transition-colors hover:bg-teal-light"
+        >
+          Explore Products
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 8h10M13 8L9 4m4 4-4 4"
+              stroke="white"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+        <a
+          href="/contact-us/#inquiry"
+          class="rounded border border-silver/30 px-8 py-3.5 font-500 text-silver transition-colors hover:border-silver/60 hover:text-white"
+        >
+          Contact Sales
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div
+        class="mt-14 grid grid-cols-3 gap-6 border-t border-white/10 pt-10"
+      >
+        {
+          stats.map((stat) => (
+            <div>
+              <div class="font-display text-4xl text-white">
+                {stat.value}
+                {stat.suffix ? (
+                  <span class="text-2xl text-teal">{stat.suffix}</span>
+                ) : null}
+              </div>
+              <div class="mt-1 text-xs tracking-wide text-silver/60">
+                {stat.label}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Right: hero visual -->
+    <div class="relative hidden md:block">
+      <div class="h-[480px]">
+        <img
+          class="h-full w-full rounded-2xl border border-teal/20 object-cover"
+          src="/images/semi-conductor-bg-1.webp"
+          alt="CMP Polishing Wafer"
+          width="800"
+          height="600"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+
+      <!-- Floating badges -->
+      <div
+        class="absolute -bottom-4 -left-4 rounded-xl border border-teal/30 bg-navy-light p-4"
+      >
+        <div class="font-display text-2xl text-teal-light">ISO Class 8</div>
+        <div class="mt-0.5 text-xs text-silver/60">Cleanroom Manufacturing</div>
+      </div>
+      <div
+        class="absolute -top-4 -right-4 rounded-xl border border-teal/30 bg-navy-light p-4"
+      >
+        <div class="font-display text-2xl text-teal-light">Hi-Tech</div>
+        <div class="mt-0.5 text-xs text-silver/60">Enterprise Certified</div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="kinetic-line absolute right-0 bottom-0 left-0"
+    aria-hidden="true"
+  >
+  </div>
+</section>

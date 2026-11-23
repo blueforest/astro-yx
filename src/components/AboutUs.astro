@@ -1,0 +1,126 @@
+---
+const bases = [
+  {
+    name: "Dongguan Base",
+    location: "Humen, Dongguan · Est. 2021",
+    image: "/images/dongguan.webp",
+    imageAlt: "Dongguan manufacturing base",
+    description:
+      "4,500 sqm facility featuring comprehensive cleanroom manufacturing (ISO Class 8 / Class 100,000) and state-of-the-art testing systems.",
+    stats: [
+      { value: "4,500", label: "sqm" },
+      { value: "ISO 8", label: "Cleanroom" },
+      { value: "5S", label: "Management" },
+    ],
+  },
+  {
+    name: "Jiangsu Base",
+    location: "Jiangsu Province · Est. 2023",
+    image: "/images/jiangsu.webp",
+    imageAlt: "Jiangsu R&D Hub",
+    description:
+      "5,000 sqm R&D and production hub pioneering domestic substitution of high-end semiconductor consumables with international technical cooperation.",
+    stats: [
+      { value: "5,000", label: "sqm" },
+      { value: "R&D", label: "Focus" },
+      { value: "Intl.", label: "Cooperation" },
+    ],
+  },
+] as const;
+---
+
+<section id="about" class="relative overflow-hidden bg-ice py-28">
+  <div
+    class="absolute top-0 right-0 h-96 w-96 rounded-full opacity-10"
+    style="background:radial-gradient(circle,#0D7E8A 0%,transparent 70%)"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <span
+        class="mb-5 inline-block rounded-full border border-teal px-4 py-1.5 text-xs font-500 tracking-widest text-teal uppercase"
+      >
+        About Us
+      </span>
+      <div class="grid items-end gap-10 lg:grid-cols-2">
+        <h2 class="font-display text-5xl leading-tight text-navy">
+          High-Tech CMP<br />
+          <span class="text-teal italic">Consumables Leader</span>
+        </h2>
+        <p class="text-lg leading-relaxed text-steel/80">
+          YX Semiconductor Materials Co., Ltd. (est. June 2021) is based in
+          Humen, Dongguan, with advanced manufacturing and testing equipment. As
+          a high-tech enterprise focusing on semiconductor CMP consumables —
+          R&D, production, and sales — we optimize polishing processes for
+          clients worldwide.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      {
+        bases.map((base) => (
+          <article class="card-lift overflow-hidden rounded-2xl border border-silver/40 bg-white">
+            <div class="aspect-[3/2] overflow-hidden">
+              <img
+                src={base.image}
+                alt={base.imageAlt}
+                class="h-full w-full object-cover"
+                width="900"
+                height="600"
+                loading="lazy"
+              />
+            </div>
+
+            <div class="p-7">
+              <div class="mb-4 flex items-center gap-3">
+                <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-teal/10">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M9 2C6.24 2 4 4.24 4 7c0 4.25 5 9 5 9s5-4.75 5-9c0-2.76-2.24-5-5-5z"
+                      fill="#0D7E8A"
+                      opacity=".8"
+                    />
+                    <circle cx="9" cy="7" r="2" fill="white" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-display text-2xl text-navy">{base.name}</h3>
+                  <p class="text-xs tracking-widest text-steel/60 uppercase">
+                    {base.location}
+                  </p>
+                </div>
+              </div>
+
+              <p class="mb-5 text-sm leading-relaxed text-steel/80">
+                {base.description}
+              </p>
+
+              <div class="grid grid-cols-3 gap-3 border-t border-silver/30 pt-5">
+                {base.stats.map((stat, index) => (
+                  <div
+                    class:list={[
+                      "text-center",
+                      index === 1 && "border-x border-silver/30",
+                    ]}
+                  >
+                    <div class="font-display text-2xl text-teal">{stat.value}</div>
+                    <div class="mt-0.5 text-xs text-steel/50">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

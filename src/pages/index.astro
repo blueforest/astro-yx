@@ -1,0 +1,34 @@
+---
+import { actions } from "astro:actions";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HomeBanner from "../components/HomeBanner.astro";
+import AboutUs from "../components/AboutUs.astro";
+import HomeProducts from "../components/HomeProducts.astro";
+import ProductFeature1 from "../components/ProductFeature1.astro";
+import ProductFeature2 from "../components/ProductFeature2.astro";
+import ProductFeature3 from "../components/ProductFeature3.astro";
+import MaterialImgs from "../components/MaterialImgs.astro";
+import Certificate from "../components/Certificate.astro";
+import ContactUs from "../components/ContactUs.astro";
+
+const result = Astro.getActionResult(actions.submitInquiry);
+
+if (result && !result.error) {
+  return Astro.redirect("/contact-us/success/");
+}
+---
+
+<BaseLayout
+  title="YX Semiconductor | Precision CMP Consumables"
+  description="YX Semiconductor Materials provides high-performance polishing pads and waxless templates for wafer CMP processes."
+>
+  <HomeBanner />
+  <AboutUs />
+  <HomeProducts />
+  <ProductFeature1 />
+  <ProductFeature2 />
+  <ProductFeature3 />
+  <MaterialImgs />
+  <Certificate />
+  <ContactUs result={result} />
+</BaseLayout>

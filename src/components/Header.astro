@@ -1,0 +1,131 @@
+---
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  { href: "/about-us/", label: "About Us" },
+  { href: "/", label: "Home" },
+  { href: "/contact-us/", label: "Contact Us" },
+] as const;
+
+function isCurrent(href: string) {
+  if (href === "/") {
+    return pathname === "/" || pathname === "";
+  }
+
+  return pathname === href || pathname.startsWith(href);
+}
+---
+
+<header
+  class="relative isolate sticky top-0 z-50 border-b border-white/10 bg-gradient-to-br from-[#081a2f] via-[#0b2340] to-[#13325c] py-3 backdrop-blur"
+>
+  <div
+    class="relative z-10 mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 md:gap-5 md:px-6"
+  >
+    <div class="flex items-center gap-3">
+      <a href="/" class="custom-logo-link" rel="home">
+        <img
+          class="yx-logo-image h-auto w-auto max-w-[170px] md:max-w-[300px]"
+          src="/images/yx-semiconductor-logo.svg"
+          alt="YX Semiconductor"
+          width="300"
+          height="58"
+        />
+      </a>
+    </div>
+
+    <nav
+      class="hidden items-center gap-6 text-sm text-silver md:flex [&_a:hover]:text-white"
+      aria-label="Header Menu"
+    >
+      <ul class="flex items-center gap-6">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        class="hidden whitespace-nowrap rounded bg-teal px-4 py-2 text-sm font-500 text-white transition-colors hover:bg-teal-light sm:inline-flex md:px-5 md:py-2.5"
+        href="/contact-us/#inquiry"
+      >
+        Get a Quote
+      </a>
+
+      <details class="group relative md:hidden">
+        <summary
+          class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded border border-white/20 text-silver transition-colors hover:border-white/40 hover:text-white"
+        >
+          <span class="sr-only">Toggle mobile menu</span>
+          <svg
+            class="group-open:hidden"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M4 7H20M4 12H20M4 17H20"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"></path>
+          </svg>
+          <svg
+            class="hidden group-open:block"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M6 6L18 18M18 6L6 18"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"></path>
+          </svg>
+        </summary>
+
+        <div
+          class="absolute right-0 mt-3 w-[min(22rem,calc(100vw-2rem))] rounded-xl border border-white/10 bg-navy-light/95 p-4 shadow-xl backdrop-blur"
+        >
+          <nav class="text-sm text-silver" aria-label="Mobile Header Menu">
+            <ul class="flex flex-col gap-3">
+              {
+                navItems.map((item) => (
+                  <li>
+                    <a
+                      href={item.href}
+                      aria-current={isCurrent(item.href) ? "page" : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+          <a
+            class="mt-4 inline-flex w-full items-center justify-center rounded bg-teal px-4 py-2.5 text-sm font-500 text-white transition-colors hover:bg-teal-light"
+            href="/contact-us/#inquiry"
+          >
+            Get a Quote
+          </a>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="pointer-events-none absolute inset-0 z-0 opacity-50 dot-grid"></div>
+</header>

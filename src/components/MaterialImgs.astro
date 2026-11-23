@@ -1,0 +1,52 @@
+---
+const reports = [
+  {
+    src: "/images/report-3.webp",
+    alt: "Composition Report 1",
+    width: 370,
+    height: 559,
+  },
+  {
+    src: "/images/report-4.webp",
+    alt: "Composition Report 2",
+    width: 382,
+    height: 550,
+  },
+  {
+    src: "/images/report-2.webp",
+    alt: "Composition Report 3",
+    width: 376,
+    height: 556,
+  },
+  {
+    src: "/images/report-1.webp",
+    alt: "Composition Report 4",
+    width: 381,
+    height: 558,
+  },
+] as const;
+---
+
+<section class="bg-white py-20">
+  <div class="mx-auto max-w-7xl px-6">
+    <h2 class="mb-10 text-center font-display text-4xl leading-tight text-navy">
+      Composition Report of Template Material
+    </h2>
+    <div
+      class="grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2 lg:grid-cols-4"
+    >
+      {
+        reports.map((report) => (
+          <img
+            src={report.src}
+            alt={report.alt}
+            class="w-full max-w-xs rounded-xl border border-slate-200 object-contain shadow"
+            width={report.width}
+            height={report.height}
+            loading="lazy"
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>

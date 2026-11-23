@@ -1,0 +1,46 @@
+---
+const certificates = [
+  {
+    src: "/images/certi3.webp",
+    alt: "Enterprise Certificate 1",
+    width: 750,
+    height: 1066,
+  },
+  {
+    src: "/images/cert2.webp",
+    alt: "Enterprise Certificate 2",
+    width: 753,
+    height: 1065,
+  },
+  {
+    src: "/images/cert1.webp",
+    alt: "Enterprise Certificate 3",
+    width: 750,
+    height: 1068,
+  },
+] as const;
+---
+
+<section class="bg-ice py-20">
+  <div class="mx-auto max-w-7xl px-6">
+    <h2 class="mb-10 text-center font-display text-4xl leading-tight text-navy">
+      Enterprise Certificate
+    </h2>
+    <div
+      class="flex flex-col items-center justify-center gap-8 md:flex-row"
+    >
+      {
+        certificates.map((certificate) => (
+          <img
+            src={certificate.src}
+            alt={certificate.alt}
+            class="w-full max-w-xs rounded-xl border border-slate-200 object-contain shadow"
+            width={certificate.width}
+            height={certificate.height}
+            loading="lazy"
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,132 @@
+---
+const samples = [
+  {
+    src: "/images/h1.webp",
+    alt: "Waxless template sample 1",
+  },
+  {
+    src: "/images/h4.webp",
+    alt: "Waxless template sample 2",
+  },
+  {
+    src: "/images/h3.webp",
+    alt: "Waxless template sample 3",
+  },
+  {
+    src: "/images/h2.webp",
+    alt: "Waxless template sample 4",
+  },
+] as const;
+
+const rows = [
+  {
+    surface: "Buffed",
+    title: "Final Polish",
+    description:
+      "Acts as a cushion to remove micro-scratches and improve surface haze.",
+  },
+  {
+    surface: "Non-Buffed",
+    title: "Stock Removal",
+    description:
+      "Acts as a rigid backstop to correct Total Thickness Variation (TTV) and achieve superior flatness.",
+  },
+  {
+    surface: "Silicone",
+    title: "",
+    description:
+      "Specialized for Compound Semiconductors (e.g., GaAs, InP). Prevents corrosive slurry from wicking to the wafer backside (Anti-wicking).",
+  },
+] as const;
+---
+
+<section class="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16">
+  <div class="mb-10 flex items-center gap-4">
+    <h2 class="font-display text-3xl tracking-tight text-navy md:text-4xl">
+      Waxless Polishing Template
+    </h2>
+  </div>
+
+  <div class="grid gap-8 lg:grid-cols-2 lg:items-start">
+    <div class="grid grid-cols-2 gap-5">
+      {
+        samples.map((sample) => (
+          <article class="p-1 text-center">
+            <img
+              src={sample.src}
+              alt={sample.alt}
+              class="mx-auto h-40 w-40 rounded-full object-cover"
+              width="160"
+              height="160"
+              loading="lazy"
+            />
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="space-y-6">
+      <div class="overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-sm">
+        <table class="w-full border-collapse">
+          <tbody>
+            <tr>
+              <th
+                colspan="2"
+                class="border-b border-slate-300 bg-slate-50 px-4 py-5 text-center text-2xl font-semibold text-navy"
+              >
+                Single-Sided Processing
+              </th>
+            </tr>
+            <tr>
+              <th
+                class="w-[200px] border-b border-r border-slate-300 bg-slate-50 px-4 py-4 text-center text-xl font-semibold text-navy"
+              >
+                Surface
+              </th>
+              <th
+                class="border-b border-slate-300 bg-slate-50 px-4 py-4 text-center text-xl font-semibold text-navy"
+              >
+                Application
+              </th>
+            </tr>
+            {
+              rows.map((row, index) => {
+                const isLast = index === rows.length - 1;
+                return (
+                  <tr>
+                    <td
+                      class:list={[
+                        "border-r border-slate-300 px-4 py-6 text-center text-xl",
+                        !isLast && "border-b",
+                      ]}
+                    >
+                      {row.surface}
+                    </td>
+                    <td
+                      class:list={[
+                        "px-4 py-6 text-base leading-relaxed",
+                        !isLast && "border-b border-slate-300",
+                      ]}
+                    >
+                      {row.title ? (
+                        <p class="text-lg font-bold">{row.title}</p>
+                      ) : null}
+                      <p>{row.description}</p>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p
+        class="rounded-xl border border-cyan-200 bg-cyan-50 px-5 py-4 text-base leading-relaxed text-slate-800"
+      >
+        These single sided waxless templates can be customized to accommodate
+        any type of material and polishing equipment.
+      </p>
+    </div>
+  </div>
+</section>

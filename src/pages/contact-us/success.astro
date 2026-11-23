@@ -1,0 +1,41 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Inquiry Sent | YX Semiconductor"
+  description="Thank you for contacting YX Semiconductor. Our team will follow up soon."
+>
+  <section class="bg-ice py-28">
+    <div class="mx-auto max-w-3xl px-6 text-center">
+      <span
+        class="mb-5 inline-block rounded-full border border-teal px-4 py-1.5 text-xs font-500 tracking-widest text-teal uppercase"
+      >
+        Success
+      </span>
+      <h1 class="mb-4 font-display text-4xl text-navy md:text-5xl">
+        Inquiry submitted successfully
+      </h1>
+      <p class="mx-auto mb-10 max-w-xl text-lg leading-relaxed text-steel/80">
+        Thank you for reaching out. Our sales team has received your message and
+        will get back to you shortly.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/"
+          class="inline-flex rounded bg-teal px-6 py-3 font-500 text-white transition-colors hover:bg-teal-light"
+        >
+          Back to Home
+        </a>
+        <a
+          href="/contact-us/"
+          class="inline-flex rounded border border-steel/20 px-6 py-3 font-500 text-navy transition-colors hover:border-teal/50 hover:text-teal"
+        >
+          Send another inquiry
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

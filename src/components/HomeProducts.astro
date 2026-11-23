@@ -1,0 +1,118 @@
+---
+const products = [
+  {
+    model: "YXPDBMC49",
+    category: "SIC Polishing Pad",
+    image: "/images/YXPDBMC49.webp",
+    imageAlt: "YXPDBMC49 microstructure",
+    specs: [
+      { key: "Thickness", value: "1.32 mm" },
+      { key: "Density", value: "0.52 g/cm³" },
+      { key: "Compressibility", value: "3.5%" },
+      { key: "Compressed elasticity", value: "52.6 %" },
+      { key: "Hardness (Asker-C)", value: "87.2" },
+    ],
+  },
+  {
+    model: "YXPDBMC42",
+    category: "SILICON Stock Polishing",
+    image: "/images/YXPDBMC42.webp",
+    imageAlt: "YXPDBMC42 microstructure",
+    specs: [
+      { key: "Thickness", value: "1.30 mm" },
+      { key: "Density", value: "0.46 g/cm³" },
+      { key: "Compressibility", value: "4.5%" },
+      { key: "Compressed elasticity", value: "69.5 %" },
+      { key: "Hardness (Asker-C)", value: "82.7" },
+    ],
+  },
+  {
+    model: "YXPDBMC47",
+    category: "SIC STOCK POLISHING",
+    image: "/images/YXPDBMC47.webp",
+    imageAlt: "YXPDBMC47 microstructure",
+    specs: [
+      { key: "Thickness", value: "1.31 mm" },
+      { key: "Density", value: "0.57 g/cm³" },
+      { key: "Compressibility", value: "2.5%" },
+      { key: "Compressed elasticity", value: "50.8 %" },
+      { key: "Hardness (Asker-C)", value: "92.5" },
+    ],
+  },
+] as const;
+---
+
+<section class="product-bg" id="products-cmp-polishing-pad">
+  <div
+    class="mx-auto max-w-7xl px-6 pt-14 pb-10 text-center md:px-10 md:pt-20"
+  >
+    <span
+      class="mx-auto mb-4 inline-flex rounded-full border border-cyan-300/35 bg-cyan-300/10 px-4 py-1 text-xs font-semibold tracking-[0.2em] text-cyan-100"
+    >
+      CMP POLISHING PAD
+    </span>
+    <h2 class="mb-4 font-display text-5xl text-white">
+      Customized solutions for CMP machine and CMP application
+    </h2>
+  </div>
+
+  <div class="mx-auto max-w-7xl space-y-10 px-6 pb-16 md:px-10">
+    <article class="series-wrap rounded-[28px] p-6 md:p-7">
+      <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <h3 class="font-display text-4xl font-semibold text-cyan-200">
+          Stock Polishing Pad
+        </h3>
+        <span
+          class="rounded-full border border-cyan-200/70 bg-cyan-300/25 px-5 py-1.5 text-sm font-extrabold tracking-wide text-cyan-50 shadow-[0_0_0_1px_rgba(34,211,238,0.25),0_8px_24px_-8px_rgba(34,211,238,0.6)]"
+        >
+          YXPDBMC Series
+        </span>
+      </div>
+
+      <p
+        class="mb-6 max-w-6xl text-sm leading-7 text-slate-200 md:text-base"
+      >
+        The YXPDBMC Series of polishing pads with nonwoven bases are primarily
+        used for stock polishing. These pads stand out for their high removal
+        rate, high level of flatness, and low defectivity.
+      </p>
+
+      <div class="grid gap-5 lg:grid-cols-3">
+        {
+          products.map((product) => (
+            <article class="product-card overflow-hidden rounded-3xl">
+              <div class="product-head">
+                <img
+                  src={product.image}
+                  alt={product.imageAlt}
+                  class="h-64 w-full object-cover object-bottom opacity-90"
+                  width="508"
+                  height="439"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-5">
+                <p class="text-xs font-semibold tracking-[0.18em] text-cyan-300 uppercase">
+                  {product.category}
+                </p>
+                <h4 class="title-font mt-2 text-4xl leading-none text-slate-100">
+                  {product.model}
+                </h4>
+                <table class="meta-table mt-4 w-full text-sm">
+                  <tbody>
+                    {product.specs.map((spec) => (
+                      <tr>
+                        <td class="meta-key py-1.5">{spec.key}</td>
+                        <td class="meta-val py-1.5 text-right">{spec.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </article>
+  </div>
+</section>

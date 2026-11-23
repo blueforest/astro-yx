@@ -1,0 +1,18 @@
+---
+import { actions } from "astro:actions";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactUs from "../../components/ContactUs.astro";
+
+const result = Astro.getActionResult(actions.submitInquiry);
+
+if (result && !result.error) {
+  return Astro.redirect("/contact-us/success/");
+}
+---
+
+<BaseLayout
+  title="Contact Us | YX Semiconductor"
+  description="Contact YX Semiconductor sales for CMP polishing pads and waxless templates."
+>
+  <ContactUs result={result} />
+</BaseLayout>

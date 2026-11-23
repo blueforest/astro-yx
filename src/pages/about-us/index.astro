@@ -1,0 +1,19 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AboutUs from "../../components/AboutUs.astro";
+import AboutUsStack from "../../components/AboutUsStack.astro";
+import AboutUsCleanroom from "../../components/AboutUsCleanroom.astro";
+import AboutUsCustomized from "../../components/AboutUsCustomized.astro";
+---
+
+<BaseLayout
+  title="About Us | YX Semiconductor"
+  description="YX Semiconductor Materials Co., Ltd. — high-tech CMP consumables leader with bases in Dongguan and Jiangsu."
+>
+  <AboutUs />
+  <AboutUsStack />
+  <AboutUsCleanroom />
+  <AboutUsCustomized />
+</BaseLayout>
